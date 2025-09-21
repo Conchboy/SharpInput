@@ -165,7 +165,7 @@ namespace Core.Win
                     timer1.Enabled = false;
 
                     //加成绩
-                    string[] cjar = new string[9];
+                    string[] cjar = new string[10];
                     cjar[0] = DateTime.Now.ToString();
                     cjar[1] = (double.Parse(tszqltxt.Text) < 100 ? Math.Round(double.Parse(tsspeed.Text) * double.Parse(tszqltxt.Text) / 100.0, 2) + "/" : "") + tsspeed.Text;
                     cjar[2] = jstxt.Text;
@@ -175,6 +175,7 @@ namespace Core.Win
                     cjar[6] = tszqltxt.Text + "%";
                     cjar[7] = Math.Round((1 - ((this.richTextBox1.Text.Length - bclxdczs) * 1.0 / this.richTextBox1.Text.Length)) * 100, 2) + "%";
                     cjar[8] = jstxt.Text;
+                    cjar[9] = Math.Round((1 - ((testzs - this.richTextBox1.Text.Length) * 1.0 / this.richTextBox1.Text.Length)) * 100, 2) + "%";
                     Win.WinInput.keybjnum = 0;
                     bclxdczs = 0;
                     Clipboard.SetText(bccjtxt);

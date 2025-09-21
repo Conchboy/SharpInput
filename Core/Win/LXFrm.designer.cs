@@ -67,15 +67,6 @@
             this.英文标点转中文标点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.中文数字全角转半角ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.datetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.js = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zql = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dcl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.jjs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.richTextBox2 = new System.Windows.Forms.TextBox();
             this.lbbmtstxt = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -101,6 +92,16 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.datetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.js = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.zs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.zql = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dcl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jjs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.jzl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -504,7 +505,8 @@
             this.hg,
             this.zql,
             this.dcl,
-            this.jjs});
+            this.jjs,
+            this.jzl});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 117);
             this.dataGridView1.MultiSelect = false;
@@ -515,88 +517,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1276, 165);
             this.dataGridView1.TabIndex = 10;
-            // 
-            // datetime
-            // 
-            this.datetime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.datetime.Frozen = true;
-            this.datetime.HeaderText = "时间";
-            this.datetime.MinimumWidth = 6;
-            this.datetime.Name = "datetime";
-            this.datetime.ReadOnly = true;
-            this.datetime.Width = 66;
-            // 
-            // speed
-            // 
-            this.speed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.speed.HeaderText = "速度";
-            this.speed.MinimumWidth = 6;
-            this.speed.Name = "speed";
-            this.speed.ReadOnly = true;
-            this.speed.Width = 66;
-            // 
-            // js
-            // 
-            this.js.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.js.HeaderText = "击速";
-            this.js.MinimumWidth = 6;
-            this.js.Name = "js";
-            this.js.ReadOnly = true;
-            this.js.Width = 66;
-            // 
-            // mc
-            // 
-            this.mc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.mc.HeaderText = "码长";
-            this.mc.MinimumWidth = 6;
-            this.mc.Name = "mc";
-            this.mc.ReadOnly = true;
-            this.mc.Width = 66;
-            // 
-            // zs
-            // 
-            this.zs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.zs.HeaderText = "字数";
-            this.zs.MinimumWidth = 6;
-            this.zs.Name = "zs";
-            this.zs.ReadOnly = true;
-            this.zs.Width = 66;
-            // 
-            // hg
-            // 
-            this.hg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.hg.HeaderText = "回改";
-            this.hg.MinimumWidth = 6;
-            this.hg.Name = "hg";
-            this.hg.ReadOnly = true;
-            this.hg.Width = 66;
-            // 
-            // zql
-            // 
-            this.zql.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.zql.HeaderText = "准确率";
-            this.zql.MinimumWidth = 6;
-            this.zql.Name = "zql";
-            this.zql.ReadOnly = true;
-            this.zql.Width = 81;
-            // 
-            // dcl
-            // 
-            this.dcl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dcl.HeaderText = "打词率";
-            this.dcl.MinimumWidth = 6;
-            this.dcl.Name = "dcl";
-            this.dcl.ReadOnly = true;
-            this.dcl.Width = 81;
-            // 
-            // jjs
-            // 
-            this.jjs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.jjs.HeaderText = "键数 ";
-            this.jjs.MinimumWidth = 6;
-            this.jjs.Name = "jjs";
-            this.jjs.ReadOnly = true;
-            this.jjs.Width = 69;
             // 
             // richTextBox2
             // 
@@ -827,6 +747,97 @@
             this.timer3.Interval = 1000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // datetime
+            // 
+            this.datetime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.datetime.Frozen = true;
+            this.datetime.HeaderText = "时间";
+            this.datetime.MinimumWidth = 6;
+            this.datetime.Name = "datetime";
+            this.datetime.ReadOnly = true;
+            this.datetime.Width = 66;
+            // 
+            // speed
+            // 
+            this.speed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.speed.HeaderText = "速度";
+            this.speed.MinimumWidth = 6;
+            this.speed.Name = "speed";
+            this.speed.ReadOnly = true;
+            this.speed.Width = 66;
+            // 
+            // js
+            // 
+            this.js.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.js.HeaderText = "击速";
+            this.js.MinimumWidth = 6;
+            this.js.Name = "js";
+            this.js.ReadOnly = true;
+            this.js.Width = 66;
+            // 
+            // mc
+            // 
+            this.mc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.mc.HeaderText = "码长";
+            this.mc.MinimumWidth = 6;
+            this.mc.Name = "mc";
+            this.mc.ReadOnly = true;
+            this.mc.Width = 66;
+            // 
+            // zs
+            // 
+            this.zs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.zs.HeaderText = "字数";
+            this.zs.MinimumWidth = 6;
+            this.zs.Name = "zs";
+            this.zs.ReadOnly = true;
+            this.zs.Width = 66;
+            // 
+            // hg
+            // 
+            this.hg.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.hg.HeaderText = "回改";
+            this.hg.MinimumWidth = 6;
+            this.hg.Name = "hg";
+            this.hg.ReadOnly = true;
+            this.hg.Width = 66;
+            // 
+            // zql
+            // 
+            this.zql.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.zql.HeaderText = "准确率";
+            this.zql.MinimumWidth = 6;
+            this.zql.Name = "zql";
+            this.zql.ReadOnly = true;
+            this.zql.Width = 81;
+            // 
+            // dcl
+            // 
+            this.dcl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dcl.HeaderText = "打词率";
+            this.dcl.MinimumWidth = 6;
+            this.dcl.Name = "dcl";
+            this.dcl.ReadOnly = true;
+            this.dcl.Width = 81;
+            // 
+            // jjs
+            // 
+            this.jjs.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.jjs.HeaderText = "键数 ";
+            this.jjs.MinimumWidth = 6;
+            this.jjs.Name = "jjs";
+            this.jjs.ReadOnly = true;
+            this.jjs.Width = 69;
+            // 
+            // jzl
+            // 
+            this.jzl.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.jzl.HeaderText = "键准";
+            this.jzl.MinimumWidth = 6;
+            this.jzl.Name = "jzl";
+            this.jzl.ReadOnly = true;
+            this.jzl.Width = 66;
+            // 
             // LXFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -934,5 +945,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn zql;
         private System.Windows.Forms.DataGridViewTextBoxColumn dcl;
         private System.Windows.Forms.DataGridViewTextBoxColumn jjs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn jzl;
     }
 }
