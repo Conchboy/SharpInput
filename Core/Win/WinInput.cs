@@ -900,8 +900,8 @@ namespace Core.Win
                     }
                     if (keyData == Keys.RWin || keyData == Keys.LWin)
                     {
-                        if (!InputMode.OpenAltSelect && keyData != Keys.RWin)
-                            Input.IsPressWin = true;
+                        //if (!InputMode.OpenAltSelect && keyData != Keys.RWin)
+                        Input.IsPressWin = true;
                     }
                     //if (keyData == Keys.LMenu || keyData == Keys.RMenu)
                     //{

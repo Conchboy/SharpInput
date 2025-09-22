@@ -430,9 +430,9 @@
             this.ckalt.Location = new System.Drawing.Point(14, 240);
             this.ckalt.Margin = new System.Windows.Forms.Padding(4);
             this.ckalt.Name = "ckalt";
-            this.ckalt.Size = new System.Drawing.Size(527, 24);
+            this.ckalt.Size = new System.Drawing.Size(457, 24);
             this.ckalt.TabIndex = 5;
-            this.ckalt.Text = "开启拇指并击 用空格左右两边键：VolumeDown/VolumeUp";
+            this.ckalt.Text = "双空格并选  空格右边两键设置成：音量-/音量+";
             this.ckalt.UseVisualStyleBackColor = true;
             // 
             // groupBox2
