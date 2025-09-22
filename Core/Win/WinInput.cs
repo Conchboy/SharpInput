@@ -1091,6 +1091,11 @@ namespace Core.Win
                         openTSKey = true;
                         Input.IsPressCtrl = false;
                     }
+                    if (keyData == Keys.RWin || keyData == Keys.LWin)
+                    {
+                        openTSKey = true;
+                        Input.IsPressWin = false;
+                    }
                     if ((  keyData == Keys.VolumeDown || keyData == Keys.VolumeUp)
                         && InputMode.OpenAltSelect)
                     {

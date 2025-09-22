@@ -1635,7 +1635,21 @@ namespace Core.Base
                         Win.WinInput.InputStatus.HideByApi();
                         continue;
                     }
-                    if ((Win.WinInput.InputStatus.inputstr.Length > 0 || InputStatusFrm.Dream) && !Win.WinInput.InputStatus.Visible) { Show = true; Win.WinInput.InputStatus.ShowWindow(true); }
+                    else
+                    {
+                        if (Win.WinInput.InputStatus.getLSView())
+                        {
+                            DateTime lastsp = Win.WinInput.InputStatus.getLastSPTime();
+                            if (((TimeSpan)(DateTime.Now - lastsp)).TotalSeconds > 30)
+                                Show = false;
+                        }
+                    }
+                    if ((Win.WinInput.InputStatus.inputstr.Length > 0 || InputStatusFrm.Dream) && !Win.WinInput.InputStatus.Visible)
+                    {
+                        Show = true;
+                        Win.WinInput.InputStatus.ShowWindow(true);
+
+                    }
                    
                     
                     //要显示

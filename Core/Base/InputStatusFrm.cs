@@ -992,6 +992,14 @@ namespace Core.Base
         const int SW_HIDE = 0;  
         private const int SWP_NoActiveWINDOW = 0x10;
         private const int HWND_TOPMOST = -1;
+        public bool getLSView()
+        {
+            return LSView;
+        }
+        public DateTime getLastSPTime()
+        {
+            return LastSPTime;
+        }
         /// <summary>
         /// view input
         /// </summary>
@@ -1051,6 +1059,7 @@ namespace Core.Base
         public static string LastLinkNum = string.Empty;
         public static bool LSView = false;
         public static bool three_no2=false;
+        public static DateTime LastSPTime = DateTime.Now;
         /// <summary>
         /// 显示候选框的汉字
         /// smspace  
@@ -1062,6 +1071,7 @@ namespace Core.Base
             {
                 LSView = false;
             }
+            if (sp) LastSPTime = DateTime.Now;
             this.HideByApi();
             Dream = false;
             PageNum = 1;
