@@ -354,7 +354,11 @@ namespace Core.Comm
                 RegistryKey Run = HKLM.CreateSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run");
                 if (Started == true)
                 {
-
+                    try
+                    {
+                        Run.DeleteValue("速录宝-srkmm.ysepan.com");
+                    }
+                    catch { }
                     Run.SetValue("速录宝-srkmm.ysepan.com", Application.ExecutablePath);
                     HKLM.Close();
 

@@ -12,6 +12,7 @@ using System.Drawing;
 using Core.Comm;
 using Core.Config;
 using System.Drawing.Drawing2D;
+ 
 
 namespace Core.Win
 {
@@ -903,11 +904,10 @@ namespace Core.Win
                         //if (!InputMode.OpenAltSelect && keyData != Keys.RWin)
                         Input.IsPressWin = true;
                     }
-                    //if (keyData == Keys.LMenu || keyData == Keys.RMenu)
-                    //{
-                    //    if (!InputMode.OpenAltSelect && keyData != Keys.RMenu)
-                    //        Input.IsPressAlt = true;
-                    //}
+                    if (keyData == Keys.LMenu || keyData == Keys.RMenu)
+                    {
+                        Input.IsPressAlt = true;
+                    }
                     #endregion
 
                     if (Input.IsPressCtrl && keyData == Keys.Delete)
@@ -1112,7 +1112,10 @@ namespace Core.Win
                         Input.IsPressAlt = false;
                         Input.IsPressWin = false;
                     }
-
+                    if (keyData == Keys.LMenu || keyData == Keys.RMenu)
+                    {
+                        Input.IsPressAlt = true;
+                    }
                     #endregion
 
                 }
@@ -1122,6 +1125,17 @@ namespace Core.Win
 
             lastGO:
                 if (Input.IsPressCtrl && keyData == Keys.Space) return 1;
+                else if (Input.IsPressAlt)
+                {
+                    Task ts = new Task(() =>
+                    {
+                        System.Threading.Thread.Sleep(270);
+                        Input.IsPressAlt = false;
+                    }
+                    );
+                    ts.Start();
+                    return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+                }
                 else if ((Input.IsPressCtrl || Input.IsPressAlt || Input.IsPressWin || Input.IsPressShift))
                 {
 
@@ -1136,7 +1150,7 @@ namespace Core.Win
                         InputStatusFrm.SendText(keystring, "", Input.IsChinese == 2);
                         return 1;
                     }
-                    else if (( keyData == Keys.VolumeDown || keyData == Keys.VolumeUp) && InputMode.OpenAltSelect && Input.isActiveInput) return 1;
+                    else if ((keyData == Keys.VolumeDown || keyData == Keys.VolumeUp) && Input.isActiveInput) return 1;
                     else
                         return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 
@@ -1149,8 +1163,9 @@ namespace Core.Win
                 else if (SendKeyToNex == 0)
                 {
                     if (keyData == Keys.Back) InputStatusFrm.zdzjstr = string.Empty;
-                    if (( keyData == Keys.VolumeDown || keyData == Keys.VolumeUp) && InputMode.OpenAltSelect
-                        && Input.isActiveInput) return 1;
+                    if ((keyData == Keys.VolumeDown || keyData == Keys.VolumeUp) && InputMode.OpenAltSelect
+                        && Input.isActiveInput)
+                        return 1;
                     else
                         return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
                 }
@@ -2874,13 +2889,13 @@ namespace Core.Win
                 return;
             }
 
-            TrayIcon.Text = "速录宝3.2.3";//鼠标移至托盘的提示文本
+            TrayIcon.Text = "速录宝3.2.4";//鼠标移至托盘的提示文本
             TrayIcon.Visible = true;
 
             //定义一个MenuItem数组，并把此数组同时赋值给ContextMenu对象 
             mnuItms = new MenuItem[14];
             mnuItms[mnuItms.Length - 14] = new MenuItem();
-            mnuItms[mnuItms.Length - 14].Text = "关于速录宝3.2.3";
+            mnuItms[mnuItms.Length - 14].Text = "关于速录宝3.2.4";
             mnuItms[mnuItms.Length - 14].Visible = true;
             mnuItms[mnuItms.Length - 14].Click += new System.EventHandler(this.AboutInfo);
             mnuItms[mnuItms.Length - 13] = new MenuItem();
