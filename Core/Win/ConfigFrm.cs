@@ -1,4 +1,4 @@
-﻿using Core.Base;
+﻿﻿using Core.Base;
 using Core.Comm;
 using System;
 using System.Collections.Generic;
@@ -63,6 +63,7 @@ namespace Core.Win
             InputMode.iselect = this.chkiselect.Checked;
             InputMode.onesp = this.chkonesp.Checked;
             InputMode.select3 = this.chkselect3.Checked;
+            InputMode.semicolonSelect = this.chksemicolonSelect.Checked;
             InputMode.spaceaout = this.cmspace.SelectedIndex;
             InputMode.autodata = this.chkautodata.Checked;
             InputMode.useregular = this.cheuseregular.Checked;
@@ -126,6 +127,7 @@ namespace Core.Win
             this.chkiselect.Checked = InputMode.iselect;
             this.chkonesp.Checked = InputMode.onesp;
             this.chkselect3.Checked = InputMode.select3;
+            this.chksemicolonSelect.Checked = InputMode.semicolonSelect;
 
             this.chkautodata.Checked = InputMode.autodata;
 

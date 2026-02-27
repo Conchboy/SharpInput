@@ -308,6 +308,7 @@ namespace Core.Win
             InputMode.iselect = string.IsNullOrEmpty(SetInfo.GetValue("iselect", setting)) ? true : bool.Parse(SetInfo.GetValue("iselect", setting));
             InputMode.onesp = string.IsNullOrEmpty(SetInfo.GetValue("onesp", setting)) ? true : bool.Parse(SetInfo.GetValue("onesp", setting));
             InputMode.select3 = string.IsNullOrEmpty(SetInfo.GetValue("select3", setting)) ? false : bool.Parse(SetInfo.GetValue("select3", setting));
+            InputMode.semicolonSelect = string.IsNullOrEmpty(SetInfo.GetValue("semicolonSelect", setting)) ? false : bool.Parse(SetInfo.GetValue("semicolonSelect", setting));
             InputMode.spaceaout = string.IsNullOrEmpty(SetInfo.GetValue("spaceaout", setting)) ? 0 : int.Parse(SetInfo.GetValue("spaceaout", setting));
             InputMode.autodata = string.IsNullOrEmpty(SetInfo.GetValue("autodata", setting)) ? true : bool.Parse(SetInfo.GetValue("autodata", setting));
             InputMode.useregular = string.IsNullOrEmpty(SetInfo.GetValue("useregular", setting)) ? false : bool.Parse(SetInfo.GetValue("useregular", setting));
@@ -463,6 +464,7 @@ namespace Core.Win
             set.Add("iselect=" + InputMode.iselect);
             set.Add("onesp=" + InputMode.onesp);
             set.Add("select3=" + InputMode.select3);
+            set.Add("semicolonSelect=" + InputMode.semicolonSelect);
             set.Add("spaceaout=" + InputMode.spaceaout);
             set.Add("autodata=" + InputMode.autodata);
             set.Add("useregular=" + InputMode.useregular);
@@ -1252,11 +1254,33 @@ namespace Core.Win
                 return -1;
             }
             string keychar = Input.CheckKeysString(key);
+            // 当候选框出现且;'/选重功能开启时，优先执行选重操作
+            // 但如果是并击组合（队列不为空），则不执行选重，让键正常进入队列
+            if (InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect && Comm.Cache.KeyQueue.Count == 0)
+            {
+                //;'/选重
+                if (key == Keys.OemSemicolon) // ; 键
+                {
+                    InputStatus.ShangPing(2);
+                    return -1;
+                }
+                else if (key == Keys.Oem7) // ' 键
+                {
+                    InputStatus.ShangPing(3);
+                    return -1;
+                }
+                else if (key == Keys.OemQuestion) // / 键
+                {
+                    InputStatus.ShangPing(4);
+                    return -1;
+                }
+            }
+            
             if (!Input.CheckCode(keychar) && key != Keys.Space)
             {
                 if (InputStatus.inputstr.Length > 0)
                 {
-                   
+                    
                     if (keychar.Length > 0 && "1234567890".IndexOf(keychar) >= 0)
                     {
     
@@ -1344,6 +1368,14 @@ namespace Core.Win
             queuecount = Comm.Cache.KeyQueue.Count;
             if (queuecount == 0)
             {
+                // 当队列是空的时候，检查是否是单独的;、'或/键，执行选重操作
+                if (InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect)
+                {
+                    // 这里需要记录最后按下的键，暂时使用一个临时变量来模拟
+                    // 实际实现中需要在KeyDown事件中记录最后按下的键
+                    // 由于当前代码结构限制，我们需要修改KeyDown事件来记录最后按下的键
+                    // 这里暂时不实现，后续需要进一步修改
+                }
                 return;
             }
             bool havejj = false;
@@ -1367,6 +1399,7 @@ namespace Core.Win
                     {
                         Input.IsPressRAlt = true;
                         srspace = true;
+
                     }
                     if (!Input.IsPressRAlt)
                         Input.IsPressRAlt = (_lkey.KeyData == Keys.VolumeUp);
@@ -1374,6 +1407,7 @@ namespace Core.Win
                     {
                         Input.IsPressLAlt = true;
                         srspace = true;
+
                     }
                 }
 

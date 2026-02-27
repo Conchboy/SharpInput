@@ -87,6 +87,7 @@
             this.chkiselect = new System.Windows.Forms.CheckBox();
             this.chkonesp = new System.Windows.Forms.CheckBox();
             this.chkselect3 = new System.Windows.Forms.CheckBox();
+            this.chksemicolonSelect = new System.Windows.Forms.CheckBox();
             this.cmspace = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.chkautodata = new System.Windows.Forms.CheckBox();
@@ -827,6 +828,18 @@
             this.chkselect3.Text = "空格+第3码 左右选字词上屏";
             this.chkselect3.UseVisualStyleBackColor = true;
             // 
+            // chksemicolonSelect
+            // 
+            this.chksemicolonSelect.AutoSize = true;
+            this.chksemicolonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chksemicolonSelect.Location = new System.Drawing.Point(14, 405);
+            this.chksemicolonSelect.Margin = new System.Windows.Forms.Padding(4);
+            this.chksemicolonSelect.Name = "chksemicolonSelect";
+            this.chksemicolonSelect.Size = new System.Drawing.Size(251, 22);
+            this.chksemicolonSelect.TabIndex = 25;
+            this.chksemicolonSelect.Text = ";'/选重";
+            this.chksemicolonSelect.UseVisualStyleBackColor = true;
+            // 
             // cmspace
             // 
             this.cmspace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -929,6 +942,7 @@
             this.Controls.Add(this.cmspace);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.chkselect3);
+            this.Controls.Add(this.chksemicolonSelect);
             this.Controls.Add(this.chkonesp);
             this.Controls.Add(this.chkiselect);
             this.Controls.Add(this.chkdcxz);
@@ -1033,6 +1047,7 @@
         private System.Windows.Forms.CheckBox chkiselect;
         private System.Windows.Forms.CheckBox chkonesp;
         private System.Windows.Forms.CheckBox chkselect3;
+        private System.Windows.Forms.CheckBox chksemicolonSelect;
         private System.Windows.Forms.ComboBox cmspace;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox chkautodata;
