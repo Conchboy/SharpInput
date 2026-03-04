@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -209,6 +209,7 @@ namespace Core.Win
         }
 
         public static Image Bkimg = null;
+        private static Keys lastPressedKey = Keys.None;
 
         public bool LoadSkin()
         {
@@ -1254,26 +1255,38 @@ namespace Core.Win
                 return -1;
             }
             string keychar = Input.CheckKeysString(key);
-            // 当候选框出现且;'/选重功能开启时，优先执行选重操作
-            // 但如果是并击组合（队列不为空），则不执行选重，让键正常进入队列
-            if (InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect && Comm.Cache.KeyQueue.Count == 0)
+            // 记录最后按下的键
+            lastPressedKey = key;
+            // 当候选框出现且;'/选重功能开启时，暂时不执行选重操作
+            // 而是将键加入队列，在KeyUp事件中判断是否是并击组合
+            if (InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect && (key == Keys.OemSemicolon || key == Keys.Oem7 || key == Keys.OemQuestion))
             {
-                //;'/选重
-                if (key == Keys.OemSemicolon) // ; 键
+                // 让键正常进入队列，在KeyUp事件中处理
+                return 1;
+            }
+            
+            // 检查是否有其他键正在按下
+            byte[] keyboardState = new byte[256];
+            GetKeyboardState(keyboardState);
+            bool hasOtherKeysPressed = false;
+            // 检查是否有其他非修饰键正在按下
+            for (int i = 0; i < 256; i++)
+            {
+                // 排除修饰键和当前按下的键
+                if (i != (int)key && i != (int)Keys.LShiftKey && i != (int)Keys.RShiftKey && i != (int)Keys.LControlKey && i != (int)Keys.RControlKey && i != (int)Keys.LMenu && i != (int)Keys.RMenu && i != (int)Keys.LWin && i != (int)Keys.RWin)
                 {
-                    InputStatus.ShangPing(2);
-                    return -1;
+                    if ((keyboardState[i] & 0x80) != 0)
+                    {
+                        hasOtherKeysPressed = true;
+                        break;
+                    }
                 }
-                else if (key == Keys.Oem7) // ' 键
-                {
-                    InputStatus.ShangPing(3);
-                    return -1;
-                }
-                else if (key == Keys.OemQuestion) // / 键
-                {
-                    InputStatus.ShangPing(4);
-                    return -1;
-                }
+            }
+            
+            // 如果有其他键正在按下，让键正常进入队列，在KeyUp事件中处理
+            if (hasOtherKeysPressed)
+            {
+                return 1;
             }
             
             if (!Input.CheckCode(keychar) && key != Keys.Space)
@@ -1368,17 +1381,43 @@ namespace Core.Win
             queuecount = Comm.Cache.KeyQueue.Count;
             if (queuecount == 0)
             {
-                // 当队列是空的时候，检查是否是单独的;、'或/键，执行选重操作
-                if (InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect)
-                {
-                    // 这里需要记录最后按下的键，暂时使用一个临时变量来模拟
-                    // 实际实现中需要在KeyDown事件中记录最后按下的键
-                    // 由于当前代码结构限制，我们需要修改KeyDown事件来记录最后按下的键
-                    // 这里暂时不实现，后续需要进一步修改
-                }
+                // 当队列是空的时候，直接返回
                 return;
             }
             bool havejj = false;
+            // 检查队列中是否只有一个键，并且这个键是;、'或/键
+            bool isSingleSemicolonKey = false;
+            Keys singleKey = Keys.None;
+            if (queuecount == 1)
+            {
+                _lkey = Comm.Cache.KeyQueue.Peek();
+                if (_lkey.KeyData == Keys.OemSemicolon || _lkey.KeyData == Keys.Oem7 || _lkey.KeyData == Keys.OemQuestion)
+                {
+                    isSingleSemicolonKey = true;
+                    singleKey = _lkey.KeyData;
+                }
+            }
+            // 如果是单独的;、'或/键，执行选重操作
+            if (isSingleSemicolonKey && InputStatus.inputstr.Length > 0 && InputMode.semicolonSelect)
+            {
+                // 清空队列
+                Comm.Cache.KeyQueue.Clear();
+                // 执行选重操作
+                if (singleKey == Keys.OemSemicolon) // ; 键
+                {
+                    InputStatus.ShangPing(2);
+                }
+                else if (singleKey == Keys.Oem7) // ' 键
+                {
+                    InputStatus.ShangPing(3);
+                }
+                else if (singleKey == Keys.OemQuestion) // / 键
+                {
+                    InputStatus.ShangPing(4);
+                }
+                return;
+            }
+            // 否则，处理并击组合
             for (int i = 0; i < queuecount; i++) //出队
             {
                 
@@ -1418,6 +1457,8 @@ namespace Core.Win
             if (!zzspace && havejj && Comm.Cache.KeyQueue.Count == 0)
             {
                 keybjnum++;
+                // 处理完并击组合后，清除lastPressedKey
+                lastPressedKey = Keys.None;
             }
             //}
 
